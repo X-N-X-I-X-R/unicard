@@ -1,14 +1,6 @@
 # UniCard
 
-UniCard is a group payment application that allows users to create pools, add participants, and generate a prepaid card for group purchases. Each participant can contribute funds to the pool, and the group creator can manage the payments. The app supports Apple Pay integration for seamless money transfers and tracking of contributions and expenses.
 
-## Features
-
-- **Create a Pool**: Easily create a group pool with a custom name and invite participants.
-- **Add Participants**: Add contacts from your address book to the pool and invite them to join.
-- **Prepaid Card Creation**: Generate a prepaid card for group payments with multiple card types (Gold, Platinum, Diamond).
-- **Apple Pay Integration**: Use Apple Pay to add funds to the pool and load the prepaid card.
-- **Track Contributions**: View real-time updates of participant contributions and track expenses.
 
 ## Installation
 
