@@ -14,7 +14,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSContactsUsageDescription": "This app needs access to your contacts to invite friends to the pool."
-      }
+      },
+      "bundleIdentifier": "com.nirexpo-2.unicard"
     },
     "android": {
       "adaptiveIcon": {

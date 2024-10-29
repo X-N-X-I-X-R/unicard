@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import * as Contacts from 'expo-contacts';
-import { TextInput, Card, Paragraph, Avatar } from 'react-native-paper';
+import { TextInput, Card, Paragraph, Avatar, FAB } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { usePool } from '@/components/PoolContext'; 
+import { useDispatch, useSelector } from 'react-redux'; // ייבוא Redux
+import { addContact, removeContact } from '@/server/store/actions/poolSlice'; // ייבוא פעולות Redux
 
 export default function Addcontacts() {
-  const { selectedContacts, setSelectedContacts } = usePool(); // קבלת רשימת אנשי קשר שנבחרו
+  const dispatch = useDispatch();
+  const selectedContacts = useSelector((state: any) => state.pool.contacts); // שימוש ב-selector
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
   const [filteredContacts, setFilteredContacts] = useState<Contacts.Contact[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>(''); 
@@ -65,19 +67,22 @@ export default function Addcontacts() {
     }
   }, [searchQuery, contacts]);
 
+
+
 const toggleContactSelection = (contact: Contacts.Contact) => {
   const isSelected = selectedContacts.some((c: Contacts.Contact) => c.id === contact.id);
 
   if (isSelected) {
-    setSelectedContacts((prev) => prev.filter((c) => c.id !== contact.id));
+    dispatch(removeContact(contact)); // הסרת איש קשר דרך Redux
   } else {
-    setSelectedContacts((prev) => [...prev, contact]);
+    dispatch(addContact(contact)); // הוספת איש קשר דרך Redux
   }
 };
 
-const isContactSelected = (contactId: string) => {
-  return selectedContacts.some((contact) => contact.id === contactId);
-};
+
+  const isContactSelected = (contactId: string) => {
+    return selectedContacts.some((contact: Contacts.Contact) => contact.id === contactId);
+  };
 
   return (
     <View style={styles.container}>
@@ -116,6 +121,19 @@ const isContactSelected = (contactId: string) => {
         onEndReachedThreshold={0.5}
         ListFooterComponent={loading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
       />
+
+      {/* כפתור פעולה עיקרי (FAB) */}
+      {selectedContacts.length > 0 && (
+        <FAB
+          style={styles.fab}
+          small
+          icon="check"
+          label="Confirm"
+          onPress={() => {
+            Alert.alert('Selected Contacts', `You have selected ${selectedContacts.length} contacts.`);
+          }}
+        />
+      )}
     </View>
   );
 }
@@ -140,5 +158,12 @@ const styles = StyleSheet.create({
   contactInfo: {
     flex: 1,
     marginLeft: 10,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#4CAF50',
   },
 });

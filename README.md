@@ -134,3 +134,8 @@ This will start the Expo server, and you can scan the QR code with Expo Go to ru
 ├── package-lock.json
 ├── package.json
 └── tsconfig.json
+
+
+
+// curl -X POST https://922f-77-127-91-12.ngrok-free.app/create-price
+//curl -X POST http://localhost:3000/create-price

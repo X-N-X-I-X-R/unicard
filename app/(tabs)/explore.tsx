@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { Collapsible } from '@/components/layout/Collapsible';
+import { ExternalLink } from '@/components/layout/ExternalLink';
+import ParallaxScrollView from '@/components/layout/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 

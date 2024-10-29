@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Platform } from 'react-native';
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import ParallaxScrollView from '@/components/layout/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
@@ -47,6 +46,7 @@ export default function HomeScreen() {
           Once all participants have paid, a one-time virtual credit card will be generated for the group purchase.
         </ThemedText>
       </ThemedView>
+      
     </ParallaxScrollView>
   );
 }

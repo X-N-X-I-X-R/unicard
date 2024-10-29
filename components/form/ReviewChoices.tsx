@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
-import { usePool } from '@/components/PoolContext'; // ייבוא מה-Context
+import { usePool } from '@/components/shared/PoolContext'; // ייבוא מה-Context
 
 const ReviewChoices = ({ onConfirm, onEdit }: { onConfirm: () => void; onEdit: () => void }) => {
   const { selectedContacts, poolName, cardDetails } = usePool(); // קבלת הנתונים מ-Context

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from 'react-native-paper';
-import { usePool } from '@/components/PoolContext'; // Import the context
+import { usePool } from '@/components/shared/PoolContext'; // Import the context
 
 interface createRandomCardProps {
   poolName: string;

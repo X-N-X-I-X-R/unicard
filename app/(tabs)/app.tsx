@@ -1,50 +1,27 @@
 import React, { useState } from 'react';
 import { FlatList, StyleSheet, View, Image, Alert } from 'react-native';
-import { FAB, TextInput, Button, Card, Title } from 'react-native-paper';
-import Addcontacts from '@/components/Addcontacts';
-import { PoolProvider, usePool } from '@/components/PoolContext'; 
-import CreateRandomCard from '@/components/Cardtype'; 
-import ReviewChoices from '@/components/ReviewChoices'; 
+import { FAB } from 'react-native-paper';
+import { Provider as ReduxProvider } from 'react-redux';
+import Addcontacts from '@/components/form/Addcontacts';
+import { PoolProvider, usePool } from '@/components/shared/PoolContext';
+import CreateRandomCard from '@/components/form/Cardtype';
+import ReviewChoices from '@/components/form/ReviewChoices';
+import CreatePool from '@/components/form/CreatePool';
+import store from '@/server/store/configureStore'; // Import the Redux store
+
 const AppContent = () => {
-  const { selectedContacts, setPoolName, poolName } = usePool(); 
-  const [currentStep, setCurrentStep] = useState(1); 
-  const [localPoolName, setLocalPoolName] = useState(''); 
+  const { selectedContacts, setPoolName, poolName } = usePool();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [localPoolName, setLocalPoolName] = useState('');
 
   const renderSection = () => {
     if (currentStep === 1) {
-      return (
-        <Card style={styles.formCard}>
-          <Card.Content>
-            <Title>Create a Pool</Title>
-            <TextInput
-              label="Enter Pool Name"
-              mode="outlined"
-              value={localPoolName}
-              onChangeText={setLocalPoolName}
-              style={styles.input}
-            />
-            <Button
-              mode="contained"
-              onPress={() => {
-                if (localPoolName) {
-                  setPoolName(localPoolName); 
-                  setCurrentStep(2); 
-                  console.log('Pool Name Set:', localPoolName); // בדיקת השם
-                } else {
-                  Alert.alert('Error', 'Please enter a valid pool name.');
-                }
-              }}
-              style={styles.createButton}
-            >
-              Next
-            </Button>
-          </Card.Content>
-        </Card>
-      );
+      console.log(`CreatePoll: ${poolName}`);
+      return <CreatePool onNext={() => setCurrentStep(2)} />;
     }
 
     if (currentStep === 2) {
-      console.log('Selected Contacts:', selectedContacts); // בדיקת אנשי קשר שנבחרו
+      console.log('Selected Contacts:', selectedContacts);
       return <Addcontacts />;
     }
 
@@ -80,10 +57,10 @@ const AppContent = () => {
               resizeMode="cover"
             />
           </View>
+          
         )}
       />
 
-      {/* הצגת כפתור ה-FAB בהתאם לשלב הנוכחי */}
       {currentStep === 2 && selectedContacts.length > 0 && (
         <FAB
           style={styles.fab}
@@ -92,7 +69,7 @@ const AppContent = () => {
           label="Next"
           onPress={() => {
             setCurrentStep(3);
-            console.log('Moving to Step 3'); // בדיקת מעבר לשלב הבא
+            console.log('Moving to Step 3');
           }}
         />
       )}
@@ -105,8 +82,8 @@ const AppContent = () => {
           label="Finish"
           onPress={() => {
             setCurrentStep(4);
-            console.log('Moving to Step 4'); // בדיקת מעבר לשלב הבא
-          }} // מעבר לשלב הסיכום
+            console.log('Moving to Step 4');
+          }}
         />
       )}
     </View>
@@ -115,9 +92,11 @@ const AppContent = () => {
 
 export default function App() {
   return (
-    <PoolProvider>
-      <AppContent />
-    </PoolProvider>
+    <ReduxProvider store={store}>
+      <PoolProvider>
+        <AppContent />
+      </PoolProvider>
+    </ReduxProvider>
   );
 }
 
@@ -125,15 +104,14 @@ const styles = StyleSheet.create({
   fabContainer: {
     position: 'absolute',
     bottom: 20,
-    right: 20,  // הצג בצד ימין, אפשר לשנות ל-left אם רוצים בצד שמאל
-        zIndex: 1, // וודא שהכפתור מעל כל רכיב אחר
-
+    right: 20,
+    zIndex: 1,
   },
   fab: {
     backgroundColor: '#4CAF50',
   },
   fabContactList: {
-    zIndex: 1, // וודא שהכפתור מעל כל רכיב אחר
+    zIndex: 1,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -153,8 +131,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-
-
   formCard: {
     marginTop: 10,
     padding: 20,
@@ -165,9 +141,8 @@ const styles = StyleSheet.create({
   },
   createButton: {
     marginTop: 10,
-
   },
-    flatListContainer: {
-    paddingBottom: 150, // הוסף מרווח כדי שה-FAB לא יסתיר את התוכן
+  flatListContainer: {
+    paddingBottom: 150,
   },
 });
