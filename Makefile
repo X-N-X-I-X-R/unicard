@@ -1,21 +1,24 @@
-# run Docker 
+
+
+
+# הרצת Docker עבור Unicard
 docker_run_unicard:
 	docker run -it --name my-unicard-container -p 19000:19000 -p 19001:19001 -p 19002:19002 -p 8081:8081 unicard-app
 
 
-# התקנת כל החבילות המוגדרות ב-package.json
-install:
-	npm install
+# הרצת Expo על iOS
+runios:
+	npm run ios
 
-# עדכון החבילות לגרסאות התואמות להגדרות ב-package.json
-update:
-	npm update
+# הרצת שרת Node עבור Stripe מתוך התיקייה server
+runstripe:
+	dotenv -e server/.env -- node server/server_stripe.js
 
-# הצגת חבילות מיושנות שניתן לעדכן
-outdated:
-	npm outdated
+# הרצת Ngrok לחשיפת הפורט של Expo
+ngrok:
+	ngrok http 3000
 
-# ביצוע בדיקת אבטחה על החבילות המותקנות
+# בדיקת אבטחה על החבילות המותקנות
 audit:
 	npm audit
 
@@ -23,48 +26,30 @@ audit:
 audit-fix:
 	npm audit fix
 
-# הפעלת האפליקציה
-start:
-	npm start
-
-# בניית האפליקציה (אם יש סקריפט build)
-build:
-	npm run build
-
-# הרצת בדיקות
-test:
-	npm test
-
-# מחיקת תיקיית node_modules
+# ניקוי תיקיית node_modules
 clean:
 	rm -rf node_modules
 
 # הסרת והתקנה מחדש של החבילות
-reinstall: clean install
+reinstall:
+	make clean
+	npm install
 
-# פקודות tree
+# הצגת מבנה הקבצים בעזרת tree
 
-# הצגת מבנה התיקיות והקבצים
-tree:
-	tree
-
-# הצגת המבנה תוך התעלמות מתיקיית node_modules
+# התעלמות מתיקיית node_modules
 tree-ignore:
 	tree -I 'node_modules'
 
-# הצגת המבנה תוך התעלמות ממספר תיקיות (node_modules, .git, dist)
+# התעלמות מתיקיות node_modules, .git ו-dist
 tree-ignore-all:
 	tree -I 'node_modules|.git|dist'
-
-# הצגת המבנה עד רמה 2
-tree-limited:
-	tree -L 2
 
 # הצגת קבצים עם סיומת .js בלבד
 tree-js:
 	tree -P '*.js'
 
-# הצגת מבנה התיקיות בלבד (ללא קבצים)
+# הצגת מבנה תיקיות בלבד (ללא קבצים)
 tree-dirs:
 	tree -d
 
@@ -76,22 +61,21 @@ tree-hidden:
 tree-size:
 	tree -h
 
-# שמירת המבנה לקובץ tree.txt
+# שמירת מבנה הקבצים לקובץ tree.txt
 tree-save:
 	tree > tree.txt
+
+# מציאת קבצים ללא נתיב node_modules
 findnopath:
 	find . -not -path "./node_modules/*"
+
 # הגדרת מטרות שאינן קבצים (phony targets)
-.PHONY: install update outdated audit audit-fix start build test clean reinstall \
-        tree tree-ignore tree-ignore-all tree-limited tree-js tree-dirs tree-hidden \
-        tree-size tree-save
+.PHONY: runios runstripe docker_run_unicard ngrok audit audit-fix clean reinstall \
+        tree-ignore tree-ignore-all tree-js tree-dirs tree-hidden tree-size tree-save \
+        findnopath
 
 
 
 
-
-
-
-############--- Linux ---##################
 
 

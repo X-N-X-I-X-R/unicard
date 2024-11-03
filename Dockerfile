@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install -g expo-cli 
-
+RUN npm install -g dotenv-cli
 RUN npm install
 
 COPY . .

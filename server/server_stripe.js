@@ -1,14 +1,14 @@
-// create_price.js
+require('dotenv').config();
+console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY);
 const express = require('express');
-const morgan = require('morgan'); // הוסף את morgan
+const morgan = require('morgan');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-
-// שימוש ב-morgan כדי לתעד בקשות HTTP
 app.use(morgan('combined'));
+
 app.post('/create-price', async (req, res) => {
   try {
     console.log('Received request to create price');
@@ -40,4 +40,6 @@ app.post('/create-price', async (req, res) => {
   }
 });
 
-
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

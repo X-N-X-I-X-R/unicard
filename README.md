@@ -15,7 +15,10 @@ A group payment application where multiple people can contribute toward a group 
     ```
 
 ## Installation
-
+to install more expo packages
+```bash
+npx expo install <package-name>
+```
 ### Local Development
 
 To run the application locally without Docker, follow these steps:
@@ -27,20 +30,17 @@ To run the application locally without Docker, follow these steps:
     ```
 
 2. **Install dependencies:**
-    ```bash
-    npm install
-    ```
+
 
 3. **Run the app for iOS:**
     ```bash
     npm run ios
     ```
-
-4. **Run the app for Android or web:**
+    or try  
     ```bash
-    npm run android
-    npm run web
+    make runios
     ```
+
 
 ### Running with Docker
 
@@ -76,66 +76,29 @@ This will start the Expo server, and you can scan the QR code with Expo Go to ru
 
 ---
 
-## Project Structure
-
-```bash
-├── app
-│   ├── (tabs)               # Main tabs layout
-│   │   ├── _layout.tsx
-│   │   ├── app.tsx
-│   │   ├── explore.tsx
-│   │   └── index.tsx
-│   ├── +html.tsx
-│   ├── +not-found.tsx
-│   └── _layout.tsx
-├── assets                   # Images, fonts
-│   ├── fonts
-│   │   └── SpaceMono-Regular.ttf
-│   └── images
-│       ├── logo.png
-│       └── logo.webp
-├── components               # Reusable UI components
-│   ├── Addcontacts.tsx
-│   ├── AppContent.tsx
-│   ├── Cardtype.tsx
-│   ├── Collapsible.tsx
-│   ├── ContactsList.tsx
-│   ├── Createpool.tsx
-│   ├── ExternalLink.tsx
-│   ├── HelloWave.tsx
-│   ├── ParallaxScrollView.tsx
-│   ├── PoolContext.jsx
-│   ├── PoolContext.tsx
-│   ├── PoolScreen.tsx
-│   ├── ReviewChoices.tsx
-│   ├── ThemedText.tsx
-│   ├── ThemedView.tsx
-│   ├── __tests__
-│   │   ├── ThemedText-test.tsx
-│   │   └── __snapshots__
-│   │       └── ThemedText-test.tsx.snap
-│   ├── navigation
-│   │   └── TabBarIcon.tsx
-│   └── types.ts
-├── constants                # App constants like colors
-│   └── Colors.ts
-├── hooks                    # Custom hooks for theming
-│   ├── useColorScheme.ts
-│   ├── useColorScheme.web.ts
-│   └── useThemeColor.ts
-├── scripts                  # Utility scripts
-│   └── reset-project.js
-├── Dockerfile
-├── Makefile
-├── README.md
-├── app.json
-├── babel.config.js
-├── expo-env.d.ts
-├── package-lock.json
-├── package.json
-└── tsconfig.json
 
 
-
+# Stripe API 
 // curl -X POST https://922f-77-127-91-12.ngrok-free.app/create-price
 //curl -X POST http://localhost:3000/create-price
+
+
+# 2 option to run ngrok  for stripe to expose the server 3000 to the internet 
+1 - ngrok http 3000
+2- make ngrok
+
+#  2 option to  run the server for stripe  (stripe is a payment gateway , we use it to handle the payment)
+1 - node server/server_stripe.js    
+2 - make runstripe 
+
+
+
+
+TODO: 
+create a new page to register the user 
+create a new page to login the user
+* use the firebase to authenticate the user 
+* use the firebase to store the user data
+
+create a reset password page 
+* use the firebase to reset the password
